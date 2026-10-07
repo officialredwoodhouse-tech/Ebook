@@ -22,6 +22,7 @@ import {
 } from './data/ebookData';
 import { BookCover3D } from './components/BookCover3D';
 import { FeaturedExcerpt } from './components/FeaturedExcerpt';
+import { RecipeSpotlight } from './components/RecipeSpotlight';
 import { TestimonialsSection } from './components/TestimonialsSection';
 import { FaqSection } from './components/FaqSection';
 
@@ -227,66 +228,7 @@ export default function App() {
                       </span>
                       <span>हिन्दी और अंग्रेज़ी दोनों भाषाओं में उपलब्ध</span>
                     </div>
-                    <button
-                      type="button"
-                      onClick={() => setShowCoverUploader(!showCoverUploader)}
-                      className="text-xs font-medium text-[#18181B]/70 hover:text-[#9E2A2B] underline underline-offset-4 inline-flex items-center gap-1 whitespace-nowrap"
-                    >
-                      <Upload className="w-3.5 h-3.5" />
-                      <span>{showCoverUploader ? 'Hide Cover Studio' : 'Use Custom Cover Images'}</span>
-                    </button>
                   </div>
-
-                  {/* Optional Custom Cover Uploader Bar (Lets user drop in their exact poster PNGs) */}
-                  {showCoverUploader && (
-                    <div className="mb-8 p-4 rounded-xl bg-[#FAF8F5] border border-[#18181B]/15 text-xs">
-                      <div className="flex flex-wrap items-center justify-between gap-2 mb-3">
-                        <span className="font-semibold text-[#18181B]">
-                          Upload Your Exact Hindi &amp; English Cover Posters (Optional):
-                        </span>
-                        {(customCoverEn || customCoverHi) && (
-                          <button
-                            type="button"
-                            onClick={resetCustomCovers}
-                            className="inline-flex items-center gap-1 text-[#9E2A2B] hover:underline font-medium"
-                          >
-                            <RotateCcw className="w-3 h-3" />
-                            <span>Reset to Default Covers</span>
-                          </button>
-                        )}
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                        <label className="flex items-center justify-center gap-2 p-2.5 rounded-lg border border-dashed border-[#18181B]/25 hover:border-[#9E2A2B] cursor-pointer bg-[#F2EFE9]/50 transition-colors">
-                          <Upload className="w-3.5 h-3.5 text-[#9E2A2B]" />
-                          <span className="truncate">
-                            {customCoverHi
-                              ? 'Hindi Cover Loaded (Change)'
-                              : 'Upload Hindi Cover (30 दिनों में बेली फैट...)'}
-                          </span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleCoverUpload('hindi', e)}
-                            className="hidden"
-                          />
-                        </label>
-                        <label className="flex items-center justify-center gap-2 p-2.5 rounded-lg border border-dashed border-[#18181B]/25 hover:border-[#9E2A2B] cursor-pointer bg-[#F2EFE9]/50 transition-colors">
-                          <Upload className="w-3.5 h-3.5 text-[#1C3829]" />
-                          <span className="truncate">
-                            {customCoverEn
-                              ? 'English Cover Loaded (Change)'
-                              : 'Upload English Cover (Lose Belly Fat...)'}
-                          </span>
-                          <input
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => handleCoverUpload('english', e)}
-                            className="hidden"
-                          />
-                        </label>
-                      </div>
-                    </div>
-                  )}
 
                   {/* Dual 3D Cover Display: Hindi & English Side-by-Side */}
                   <div className="flex flex-col sm:flex-row items-center justify-center gap-8 sm:gap-10 py-2">
@@ -538,36 +480,49 @@ export default function App() {
               {BOOK_MERITS.map((merit) => (
                 <article
                   key={merit.number}
-                  className={`${merit.spanClass} p-7 sm:p-8 rounded-2xl bg-[#F2EFE9]/70 border border-[#18181B]/10 flex flex-col justify-between`}
+                  className={`${merit.spanClass} rounded-2xl bg-[#F2EFE9]/70 border border-[#18181B]/10 overflow-hidden flex flex-col justify-between group`}
                 >
-                  <div>
-                    <div className="flex items-center justify-between text-xs text-[#18181B]/60 mb-3 pb-3 border-b border-[#18181B]/10">
-                      <span className="font-mono-tabular font-bold text-sm text-[#9E2A2B]">
-                        {merit.number}.
+                  {/* Merit Feature Image */}
+                  <div className="relative h-52 sm:h-60 overflow-hidden bg-[#E9E0D2] border-b border-[#18181B]/10">
+                    <img
+                      src={merit.imageUrl}
+                      alt={merit.imageAlt}
+                      referrerPolicy="no-referrer"
+                      className="w-full h-full object-cover group-hover:scale-[1.03] transition-transform duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-transparent flex items-end justify-between p-5">
+                      <span className="font-mono-tabular font-bold text-xs text-white bg-[#9E2A2B] px-2.5 py-1 rounded">
+                        Merit {merit.number}
                       </span>
-                      <span>{merit.subtitle}</span>
+                      <span className="text-xs text-white/90 font-medium">
+                        {merit.subtitle}
+                      </span>
                     </div>
-
-                    <h3 className="text-xl sm:text-2xl font-display font-bold text-[#18181B]">
-                      {merit.titleEn}
-                    </h3>
-                    <div className="text-sm font-display font-semibold text-[#1C3829] mt-1">
-                      {merit.titleHi}
-                    </div>
-
-                    <p className="mt-3.5 text-[15px] leading-relaxed text-[#18181B]/80">
-                      {merit.description}
-                    </p>
                   </div>
 
-                  <ul className="mt-6 pt-4 border-t border-[#18181B]/10 space-y-2 text-xs sm:text-[13px] text-[#18181B]/80">
-                    {merit.highlights.map((pt, i) => (
-                      <li key={i} className="flex items-start gap-2">
-                        <Check className="w-4 h-4 text-[#9E2A2B] shrink-0 mt-0.5" />
-                        <span>{pt}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <div className="p-7 sm:p-8 flex-1 flex flex-col justify-between">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-display font-bold text-[#18181B]">
+                        {merit.titleEn}
+                      </h3>
+                      <div className="text-sm font-display font-semibold text-[#1C3829] mt-1">
+                        {merit.titleHi}
+                      </div>
+
+                      <p className="mt-3.5 text-[15px] leading-relaxed text-[#18181B]/80">
+                        {merit.description}
+                      </p>
+                    </div>
+
+                    <ul className="mt-6 pt-4 border-t border-[#18181B]/10 space-y-2 text-xs sm:text-[13px] text-[#18181B]/80">
+                      {merit.highlights.map((pt, i) => (
+                        <li key={i} className="flex items-start gap-2">
+                          <Check className="w-4 h-4 text-[#9E2A2B] shrink-0 mt-0.5" />
+                          <span>{pt}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
                 </article>
               ))}
             </div>
@@ -644,6 +599,9 @@ export default function App() {
 
         {/* FEATURED EXCERPT SECTION (Bilingual Interactive Reader) */}
         <FeaturedExcerpt />
+
+        {/* RECIPE SPOTLIGHT SECTION (Bilingual Healthy Indian Recipe Card) */}
+        <RecipeSpotlight />
 
         {/* READER TESTIMONIALS SECTION (With Photos & Interactive Submission) */}
         <TestimonialsSection />

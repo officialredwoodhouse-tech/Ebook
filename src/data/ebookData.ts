@@ -22,6 +22,8 @@ export interface BookMerit {
   description: string;
   highlights: string[];
   spanClass: string;
+  imageUrl: string;
+  imageAlt: string;
 }
 
 export interface ExcerptChapter {
@@ -74,6 +76,7 @@ export const PUBLISHER_NAME = 'RwH Redwood House';
 
 export const COVER_PHOTO_URL = '/src/assets/images/indian_wellness_cover_photo_1791299964338.jpg';
 export const ATELIER_PHOTO_URL = '/src/assets/images/redwood_house_atelier_1791299816452.jpg';
+export const RECIPE_SPOTLIGHT_IMAGE_URL = '/src/assets/images/recipe_sattu_palak_roti_1791303116182.jpg';
 
 export const BOOK_EDITIONS: Record<'english' | 'hindi' | 'bundle', BookEdition> = {
   english: {
@@ -148,7 +151,9 @@ export const BOOK_MERITS: BookMerit[] = [
       'Vegetarian & eggetarian/non-veg Indian protein swaps (paneer, sattu, sprouts, dal combinations)',
       'Exact roti-to-sabzi ratio so you stay full without counting every calorie'
     ],
-    spanClass: 'lg:col-span-7'
+    spanClass: 'lg:col-span-7',
+    imageUrl: '/src/assets/images/merit_indian_thali_plan_1791303132816.jpg',
+    imageAlt: 'Balanced Indian home-cooked thali with whole wheat phulka rotis, yellow dal tadka, green sabzi, paneer, and fresh salad'
   },
   {
     number: '02',
@@ -162,7 +167,9 @@ export const BOOK_MERITS: BookMerit[] = [
       '10-minute post-dinner digestive walks & morning mobility flows',
       'Visual step-by-step posture cues in both English and Hindi'
     ],
-    spanClass: 'lg:col-span-5'
+    spanClass: 'lg:col-span-5',
+    imageUrl: '/src/assets/images/merit_home_workout_woman_1791303145888.jpg',
+    imageAlt: 'Indian woman doing gentle low-impact home workout on a yoga mat in a sunlit living room'
   },
   {
     number: '03',
@@ -176,7 +183,9 @@ export const BOOK_MERITS: BookMerit[] = [
       'Hormonal hunger vs. emotional boredom checklist',
       'Festival, wedding & family dinner survival blueprint'
     ],
-    spanClass: 'lg:col-span-4'
+    spanClass: 'lg:col-span-4',
+    imageUrl: '/src/assets/images/merit_evening_chai_makhana_1791303158903.jpg',
+    imageAlt: 'Healthy Indian evening ginger masala chai paired with roasted makhana foxnuts and spiced chana'
   },
   {
     number: '04',
@@ -190,7 +199,9 @@ export const BOOK_MERITS: BookMerit[] = [
       'Daily 5-habit tick-box tracker (water, protein, steps, sleep, home movement)',
       'Day 1 vs. Day 15 vs. Day 30 reflection templates'
     ],
-    spanClass: 'lg:col-span-4'
+    spanClass: 'lg:col-span-4',
+    imageUrl: '/src/assets/images/merit_progress_tracker_journal_1791303172860.jpg',
+    imageAlt: 'Printable 30-day habit checklist notebook, waist measuring tape, and tablet eBook view'
   },
   {
     number: '05',
@@ -204,7 +215,9 @@ export const BOOK_MERITS: BookMerit[] = [
       'Hormone-supportive sleep and stress reset rituals for busy mothers & professionals',
       'Direct community & editorial support via Telegram (@RedwoodHouse)'
     ],
-    spanClass: 'lg:col-span-4'
+    spanClass: 'lg:col-span-4',
+    imageUrl: '/src/assets/images/indian_wellness_cover_photo_1791299964338.jpg',
+    imageAlt: 'Confident healthy Indian woman enjoying balanced home-cooked Indian meal'
   }
 ];
 
